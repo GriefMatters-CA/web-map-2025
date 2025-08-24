@@ -1,10 +1,3 @@
-// var Stadia_AlidadeSatellite = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
-// 	minZoom: 0,
-// 	maxZoom: 20,
-// 	attribution: '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-// 	ext: 'jpg'
-// });
-
 // OSM HOT Basemap
 var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -48,10 +41,8 @@ var map = L.map('map', {
 });
 
 // Default Base Map
-// Stadia_AlidadeSatellite.addTo(map);
 Esri_WorldImagery.addTo(map);
-// Esri_WorldStreetMap.addTo(map);
-// OpenStreetMap_HOT.addTo(map);
+
 
 
 var MarkerIcon = L.Icon.extend({
@@ -131,8 +122,6 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
       "OpenStreetMap HOT": OpenStreetMap_HOT
     };
 
-    // hybridCircle = "<svg class='shadow' width='10' height='10'> <circle cx='5' cy='5' r='4' stroke-width='0.5' stroke='darkgrey' fill='white'/></svg>";
-
     var hybridIcon = `<img class = 'legendIcon' src='GG-virtual-icon.png'>`
     
     var groupedOverlays = {
@@ -160,13 +149,6 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
 
     `<div class="splashscreen"> NEW TEXT</div>`
 
-    // var TestPopup = L.popup({
-    //   closeButton: true,
-    //   autoClose: true
-    //   })
-    //   .setLatLng(layer.target.getBounds().getCenter())
-    //   .setContent('<p>Some Disclaimer Text.</p>')
-    //   .openOn(map);
 
     L.Control.textbox = L.Control.extend({
       onAdd: function(map) {
