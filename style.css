@@ -1,0 +1,203 @@
+.leaflet-bar a { background-color: #fff; border-bottom: 1px solid #ccc; color: #444; display: block; height: 26px; width: 26px; line-height: 1.45 !important; text-align: center; text-decoration: none; font: bold 18px 'Lucida Console', Monaco, monospace; }
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html, body, #map {
+  height: 100%;
+  /* width: 100%; */
+}
+
+.lorem {
+  font-family: "Raleway";
+  color: #4f4f59;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .header {
+    margin-bottom: auto;
+    display: flex;
+  }
+
+.eventName {
+  display: flex;
+  flex: 5;
+  flex-direction: column;
+}
+
+.header, .footer {
+    background-color: #314196;
+    color: #e9eae3;
+    font-family: 'Roboto Slab';
+    text-align: center;
+    font-size: 14pt;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .eventTheme {
+    font-family: 'Brittany Signature';
+    font-size: 14pt;
+    margin-top: 6px;
+  }
+
+  .table-layout {
+    width: 100%;
+    margin: 10px;
+  }
+
+  table {
+    font-family: "Raleway";
+    font-size: 12px;
+    border: dashed #4f4f59 1px;
+    width: 100%;
+  }
+
+  .popup-tbl {
+    font-family: "Raleway";
+    font-size: 12px;
+    border: dashed #4f4f59 1px;
+    border-radius: 4px;
+    padding: 4px;
+    width: 100%;
+  }
+  
+  th {
+    background-color: #29919f;
+    color: #e9eae3;
+    padding: 6px;
+    border-radius: 2px;
+  }
+  
+  td {
+    text-align: center;
+  }
+  
+  .photo {
+    display: flex;
+    width: 80%;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* img .legendIcon {
+    width: 1 px;
+    height: 1 px;
+  } */
+
+  .left-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .right-side {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hybrid {
+    background-color: #bdd87b;
+    display: flex;
+    /* box-sizing:border-box;
+    max-width: 25%; */
+    font-size: 8pt;
+    margin: 4px;
+    font-family: "Raleway";
+    color: #4f4f59;
+    border-radius: 6px;
+    padding: 2px;
+  }
+  
+  .learnMoreBtn, .buyTicketsBtn {
+    border: solid #4f4f59 1px;
+    border-radius: 6px;
+    color: #4f4f59;
+    margin: 4px;
+    font-size: 8pt;
+    margin-bottom: 8px;
+    font-family: "Raleway";
+  }
+  
+  .learnMoreBtn {
+    background-color: #e9eae3;
+    color: #4f4f59;
+  }
+  
+  .buyTicketsBtn {
+    background-color: #bdd87b;
+  }
+
+  .circle, .shadow {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .shadow {
+    filter: 
+      drop-shadow( 0px 0px 5px rgb(0, 255, 255, 0.5))
+      drop-shadow( 0px 0px 5px rgb(0, 255, 255, 0.5))
+      drop-shadow( 0px 0px 5px rgb(0, 255, 255,  0.5))
+      drop-shadow(0px 0px 10px rgb(255,255,255))
+  }
+
+  /* .hidden {
+    display: none;
+} */
+
+@media (max-width: 768px) {
+  .leaflet-popup-content {
+    max-height: 60vh; /* Limit the maximum height */
+    overflow-y: auto; /* Add scrollbar if content overflows */
+  }
+  .photo {
+    display: flex;
+    width: 100px;
+    height: 100px;
+}
+}
+
+/* .map-click-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 999; 
+}
+ */
+
+ .leaflet-popup-content {
+  width: 25%;
+ }
+
+
+ #splashscreen {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 50px;
+  font-family: 'Roboto Slab';
+  border-radius: 6px;
+ }

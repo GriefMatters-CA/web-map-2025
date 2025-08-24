@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>Grief Matters Canada 2024</title>
+
+        <link rel="stylesheet" href="style.css">
+        <!--Leaflet-->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+        <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
+        <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+        <!--Marker Cluster-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+        <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+        <!--Marker Cluster Layer Support-->
+        <script src="https://unpkg.com/leaflet.markercluster.layersupport@2.0.1/dist/leaflet.markercluster.layersupport.js"></script>
+        <!--Omnivore-->
+        <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+        <!-- Grouped Layer Control -->
+        <link rel="stylesheet" href="leaflet.groupedlayercontrol.min.css" />
+        <script src="leaflet.groupedlayercontrol.min.js"></script>
+        <!-- Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Roboto Slab' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+        <link href="https://fonts.cdnfonts.com/css/brittany-signature" rel="stylesheet">
+        <!--Home button-->
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!--Mobile response-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!--Open links in new tab-->
+        <!-- <base target="_blank"> -->
+        <!--Sidebar-->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="leaflet-sidebar.css" />
+        <!--CSV to Table-->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>  
+        <script src="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/jquerycsvtotable/jquery.csvToTable.js"></script>
+    </head>
+<body>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <!-- <li><a href="#calendar" role="tab"><i class="fa fa-calendar"></i></a></li> -->
+                <li><a href="#virtual" role="tab"><i class="fa fa-laptop"></i></a></li>
+
+            </ul>
+
+            <!-- <ul role="tablist">
+                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul> -->
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Grief Gatherings 2024
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <p class="lorem"><b>Welcome to Grief Gatherings 2024.</b></p>
+
+                <p class="lorem">Grief Gatherings is a series of events to increase grief literacy in our communities.</p>
+                <p class="lorem">Events happen September 20 - 29, 2024, online and in-person. </p>
+
+                <p class="lorem">This map shows the locations of events which have an in-person component. In-person events with an online option are shown with a turquoise icon.</p>
+
+                <p class="lorem">Navigate to the "Virtual Events" pane in the sidebar to view events which are <b>online only</b></p>
+
+                <p class="lorem">If you have any questions, please reach out to info@griefmatters.ca.</p>
+
+            </div>
+
+            <!-- <div class="sidebar-pane" id="calendar">
+                <h1 class="sidebar-header">All Events<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div> -->
+
+            <div class="sidebar-pane" id="virtual">
+                <h1 class="sidebar-header">Virtual Events<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <!-- <p class="lorem">Virtual Event Listing 1</p>
+                <p class="lorem">Virtual Event Listing 2</p>
+                <p class="lorem">Virtual Event Listing 3</p> -->
+                <br>
+                <div id="CSVTable"></div>
+                <script>
+                $(function() {
+                    $('#CSVTable').CSVToTable('responses_virtual.csv');
+                  });
+                </script>
+            </div>
+
+            <div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+        </div>
+    </div>
+    <script src="leaflet-sidebar.js"></script>
+    <div id="map">
+    </div>
+    <script src="index.js"></script>
+    <script type="text/javascript" src="popupGenerator.js"></script>
+
+</body>
+</html>
