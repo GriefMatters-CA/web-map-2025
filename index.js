@@ -32,7 +32,7 @@ var layerSupport = new L.MarkerClusterGroup.LayerSupport(markerClusterOptions);
 // Initialize map
 var map = L.map('map', {
   center: [46.1304, -90.3468],
-  zoom: 4,
+  zoom: 0,
   // layers: allEvents,
   maxZoom: 24,
   autoPan: false,
@@ -42,8 +42,6 @@ var map = L.map('map', {
 
 // Default Base Map
 Esri_WorldImagery.addTo(map);
-
-
 
 var MarkerIcon = L.Icon.extend({
   options: {
@@ -72,7 +70,6 @@ var customLayer = L.geoJson(null, {
 
     // Categories
     var inperson_n_h = layer.feature.properties.inperson_n_h;
-    var link_reg = layer.feature.properties.reg_link;
 
       // Pop-ups
     var popupContent = generatePopupContent(layer.feature)
@@ -81,7 +78,6 @@ var customLayer = L.geoJson(null, {
   
     // Open the popup after the map has panned
     setTimeout(function () {
-      // if (!isPopupManuallyClosed) {
       layer.openPopup();
       // }
     }, 300); // Adjust the delay as needed (3 seconds in this example)
@@ -116,18 +112,15 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
     map.fitBounds(layer.target.getBounds().pad(0.2));
 
     var baseMaps = {
-      // "Default (Stadia Alidade Satellite)": Stadia_AlidadeSatellite,
       "ESRI World Imagery": Esri_WorldImagery,
       "ESRI World Street Map": Esri_WorldStreetMap,
       "OpenStreetMap HOT": OpenStreetMap_HOT
     };
-
-    var hybridIcon = `<img class = 'legendIcon' src='GG-virtual-icon.png'>`
     
     var groupedOverlays = {
       "Events": {
         "All Events": allEvents,
-        "Virtual Option": eventsVirtual  // [hybridIcon + "Virtual Option"]: eventsVirtual
+        "Virtual Option": eventsVirtual  
       }
     }
 
@@ -138,17 +131,24 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
     L.control.groupedLayers(baseMaps, groupedOverlays, options).addTo(map);
     
     //Find the input element for the "All Events" overlay and set its checked property to true
-    var inputs = document.getElementsByClassName('leaflet-control-layers-overlays')[0].getElementsByTagName('input');
-    for (var i = 0; i < inputs.length; i++) {
-      var label = inputs[i].parentNode;
-      if (label.textContent.trim() === 'Events') {
-        inputs[i].checked = true;
-        break;
-      }
-    }
+    // var inputs = document.getElementsByClassName('leaflet-control-layers-overlays')[0].getElementsByTagName('input');
+    // for (var i = 0; i < inputs.length; i++) {
+    //   var label = inputs[i].parentNode;
+    //   if (label.textContent.trim() === 'Events') {
+    //     inputs[i].checked = true;
+    //     break;
+    //   }
+    // }
 
     `<div class="splashscreen"> NEW TEXT</div>`
 
+    // var TestPopup = L.popup({
+    //   closeButton: true,
+    //   autoClose: true
+    //   })
+    //   .setLatLng(layer.target.getBounds().getCenter())
+    //   .setContent('<p>Some Disclaimer Text.</p>')
+    //   .openOn(map);
 
     L.Control.textbox = L.Control.extend({
       onAdd: function(map) {
