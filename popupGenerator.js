@@ -24,8 +24,8 @@ function generatePopupContent(feature) {
                 </form>`
     }
 
-    if (feature.properties.event_photo != ''){
-        eventPhoto = feature.properties.event_photo
+    if (feature.properties.event_photo != null && feature.properties.event_photo != ''){
+        eventPhoto = feature.properties.event_photo;
     }
 
     // Build the popup content using a template literal
