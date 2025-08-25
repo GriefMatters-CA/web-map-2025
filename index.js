@@ -43,7 +43,7 @@ var map = L.map('map', {
   // layers: allEvents,
   maxZoom: 24,
   autoPan: false,
-  zoomControl: true,
+  zoomControl: false,
   tap: false
 });
 
@@ -138,6 +138,10 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
     };
 
     L.control.groupedLayers(baseMaps, groupedOverlays, options).addTo(map);
+    
+    L.control.zoom({
+      position: 'topright'
+    }).addTo(map);
     
     //Find the input element for the "All Events" overlay and set its checked property to true
     // var inputs = document.getElementsByClassName('leaflet-control-layers-overlays')[0].getElementsByTagName('input');
