@@ -9,10 +9,17 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 });
 
-// ESRI World Imagery
-var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+var Stadia_AlidadeSatellite = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
+	minZoom: 0,
+	maxZoom: 20,
+	attribution: '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'jpg'
 });
+
+// // ESRI World Imagery
+// var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+// 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+// });
 
 var markerClusterOptions = {
   spiderfyOnMaxZoom: true,
@@ -41,7 +48,8 @@ var map = L.map('map', {
 });
 
 // Default Base Map
-Esri_WorldImagery.addTo(map);
+// Esri_WorldImagery.addTo(map);
+Stadia_AlidadeSatellite.addTo(map);
 
 var MarkerIcon = L.Icon.extend({
   options: {
@@ -112,7 +120,8 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
     map.fitBounds(layer.target.getBounds().pad(0.2));
 
     var baseMaps = {
-      "ESRI World Imagery": Esri_WorldImagery,
+      // "ESRI World Imagery": Esri_WorldImagery,
+      "Stadia Alidade Satellite": Stadia_AlidadeSatellite,
       "ESRI World Street Map": Esri_WorldStreetMap,
       "OpenStreetMap HOT": OpenStreetMap_HOT
     };
@@ -141,14 +150,6 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
     // }
 
     `<div class="splashscreen"> NEW TEXT</div>`
-
-    // var TestPopup = L.popup({
-    //   closeButton: true,
-    //   autoClose: true
-    //   })
-    //   .setLatLng(layer.target.getBounds().getCenter())
-    //   .setContent('<p>Some Disclaimer Text.</p>')
-    //   .openOn(map);
 
     L.Control.textbox = L.Control.extend({
       onAdd: function(map) {
