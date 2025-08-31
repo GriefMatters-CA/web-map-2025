@@ -14,6 +14,8 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
 
+
+
 var markerClusterOptions = {
   spiderfyOnMaxZoom: true,
   showCoverageOnHover: true,
@@ -41,7 +43,10 @@ var map = L.map('map', {
 });
 
 // Default Base Map
-Esri_WorldImagery.addTo(map);
+// Esri_WorldImagery.addTo(map);
+Esri_WorldStreetMap.addTo(map);
+
+// Esri_WorldStreetMap.setOpacity(0.6);
 
 var MarkerIcon = L.Icon.extend({
   options: {
@@ -111,9 +116,11 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
 
     map.fitBounds(layer.target.getBounds().pad(0.2));
 
+    var homeZoom = map.fitBounds(layer.target.getBounds().pad(0.2));
+
     var baseMaps = {
-      "ESRI World Imagery": Esri_WorldImagery,
       "ESRI World Street Map": Esri_WorldStreetMap,
+      "ESRI World Imagery": Esri_WorldImagery,
       "OpenStreetMap HOT": OpenStreetMap_HOT
     };
     
@@ -130,19 +137,9 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
 
     L.control.groupedLayers(baseMaps, groupedOverlays, options).addTo(map);
 
-    L.control.zoom({
-      position: 'topright'
-    }).addTo(map);
-    
-    //Find the input element for the "All Events" overlay and set its checked property to true
-    // var inputs = document.getElementsByClassName('leaflet-control-layers-overlays')[0].getElementsByTagName('input');
-    // for (var i = 0; i < inputs.length; i++) {
-    //   var label = inputs[i].parentNode;
-    //   if (label.textContent.trim() === 'Events') {
-    //     inputs[i].checked = true;
-    //     break;
-    //   }
-    // }
+    // L.control.zoom({
+    //   position: 'topright'
+    // }).addTo(map);
 
     `<div class="splashscreen"> NEW TEXT</div>`
 
@@ -151,7 +148,7 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
         
       var text = L.DomUtil.create('div');
       text.id = "splashscreen";
-      text.innerHTML = "<strong>Use the sidebar at left to view virtual events</strong>"
+      text.innerHTML = "<strong<text-align: center>Use the sidebar at left to view virtual events. <br/> Use the Layer Toggles at the top right to try different base maps.</text-align></strong>"
       return text;
       },
   
@@ -161,6 +158,87 @@ var runLayer = omnivore.csv('./responses.csv', null, customLayer)
     });
     L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
     L.control.textbox({ position: 'bottomright'}).addTo(map);
+
+
+        // custom zoom bar control that includes a Zoom Home function
+        L.Control.zoomHome = L.Control.extend({
+          options: {
+              position: 'topright',
+              zoomInText: '+',
+              zoomInTitle: 'Zoom in',
+              zoomOutText: '-',
+              zoomOutTitle: 'Zoom out',
+              zoomHomeText: '<i class="fa fa-home" style="line-height:1.65;"></i>',
+              zoomHomeTitle: 'Zoom home'
+          },
+        
+          onAdd: function (map) {
+              var controlName = 'gin-control-zoom',
+                  container = L.DomUtil.create('div', controlName + ' leaflet-bar'),
+                  options = this.options;
+        
+              this._zoomInButton = this._createButton(options.zoomInText, options.zoomInTitle,
+              controlName + '-in', container, this._zoomIn);
+              this._zoomHomeButton = this._createButton(options.zoomHomeText, options.zoomHomeTitle,
+              controlName + '-home', container, this._zoomHome);
+              this._zoomOutButton = this._createButton(options.zoomOutText, options.zoomOutTitle,
+              controlName + '-out', container, this._zoomOut);
+        
+              this._updateDisabled();
+              map.on('zoomend zoomlevelschange', this._updateDisabled, this);
+        
+              return container;
+          },
+        
+          onRemove: function (map) {
+              map.off('zoomend zoomlevelschange', this._updateDisabled, this);
+          },
+        
+          _zoomIn: function (e) {
+              this._map.zoomIn(e.shiftKey ? 3 : 1);
+          },
+        
+          _zoomOut: function (e) {
+              this._map.zoomOut(e.shiftKey ? 3 : 1);
+          },
+        
+          _zoomHome: function (e) {
+              map.fitBounds(layer.target.getBounds().pad(0.2));
+          },
+        
+          _createButton: function (html, title, className, container, fn) {
+              var link = L.DomUtil.create('a', className, container);
+              link.innerHTML = html;
+              link.href = '#';
+              link.title = title;
+        
+              L.DomEvent.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+                  .on(link, 'click', L.DomEvent.stop)
+                  .on(link, 'click', fn, this)
+                  .on(link, 'click', this._refocusOnMap, this);
+        
+              return link;
+          },
+        
+          _updateDisabled: function () {
+              var map = this._map,
+                  className = 'leaflet-disabled';
+        
+              L.DomUtil.removeClass(this._zoomInButton, className);
+              L.DomUtil.removeClass(this._zoomOutButton, className);
+        
+              if (map._zoom === map.getMinZoom()) {
+                  L.DomUtil.addClass(this._zoomOutButton, className);
+              }
+              if (map._zoom === map.getMaxZoom()) {
+                  L.DomUtil.addClass(this._zoomInButton, className);
+              }
+          }
+        });
+
+        var zoomHome = new L.Control.zoomHome({
+        });
+        zoomHome.addTo(map);
 
 
 })
